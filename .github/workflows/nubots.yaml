@@ -28,10 +28,12 @@ jobs:
   build_intel_graphics_compiler_and_compute_runtime:
     name: "Build Intel Graphics Compiler and Compute Runtime"
     uses: mrwerdo/nubots/.github/workflows/build_part_of_image.yaml@0e80f6b52a1f545d18ec012c4f3e94908acb0594
+    needs: build_llvm
     with:
       target: intel-graphics-compiler-and-compute-runtime
       tags: mrwerdo/nubots:intel-graphics-compiler-and-compute-runtime
       cache_from: |
+        type=registry,ref=mrwerdo/nubots:llvm
         type=registry,ref=mrwerdo/nubots:generic
         type=inline
     secrets:

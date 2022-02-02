@@ -66,6 +66,6 @@ jobs:
           build-args: |
             platform=${{ inputs.platform }}
             BUILDKIT_INLINE_CACHE=1
-            --target=${{ inputs.target }}
+          target: ${{ inputs.target }}
           push: true
           cache-from: ${{ inputs.cache_from }}
