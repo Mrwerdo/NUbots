@@ -14,7 +14,7 @@ jobs:
   # Build LLVM
   build_llvm:
     name: "Build LLVM"
-    uses: mrwerdo/nubots/.github/workflows/build_part_of_image.yaml@0e80f6b52a1f545d18ec012c4f3e94908acb0594
+    uses: mrwerdo/nubots/.github/workflows/build_part_of_image.yaml@9b90c941c5cd2cd0095b2a5ee98e5da7c666f8b0
     with:
       target: llvm
       tags: mrwerdo/nubots:llvm
@@ -27,7 +27,7 @@ jobs:
 
   build_intel_graphics_compiler_and_compute_runtime:
     name: "Build Intel Graphics Compiler and Compute Runtime"
-    uses: mrwerdo/nubots/.github/workflows/build_part_of_image.yaml@0e80f6b52a1f545d18ec012c4f3e94908acb0594
+    uses: mrwerdo/nubots/.github/workflows/build_part_of_image.yaml@9b90c941c5cd2cd0095b2a5ee98e5da7c666f8b0
     needs: build_llvm
     with:
       target: intel-graphics-compiler-and-compute-runtime
@@ -42,7 +42,7 @@ jobs:
 
   build_openblas:
     name: "Build OpenBLAS"
-    uses: mrwerdo/nubots/.github/workflows/build_part_of_image.yaml@0e80f6b52a1f545d18ec012c4f3e94908acb0594
+    uses: mrwerdo/nubots/.github/workflows/build_part_of_image.yaml@9b90c941c5cd2cd0095b2a5ee98e5da7c666f8b0
     with:
       target: openblas
       tags: mrwerdo/nubots:openblas
@@ -55,7 +55,7 @@ jobs:
 
   build_other_dependencies:
     name: "Build Other Dependencies"
-    uses: mrwerdo/nubots/.github/workflows/build_part_of_image.yaml@0e80f6b52a1f545d18ec012c4f3e94908acb0594
+    uses: mrwerdo/nubots/.github/workflows/build_part_of_image.yaml@9b90c941c5cd2cd0095b2a5ee98e5da7c666f8b0
     with:
       target: other-dependencies
       tags: mrwerdo/nubots:other-dependencies
@@ -68,7 +68,7 @@ jobs:
 
   build_docker:
     name: "Build Docker Image"
-    uses: mrwerdo/nubots/.github/workflows/build_part_of_image.yaml@0e80f6b52a1f545d18ec012c4f3e94908acb0594
+    uses: mrwerdo/nubots/.github/workflows/build_part_of_image.yaml@9b90c941c5cd2cd0095b2a5ee98e5da7c666f8b0
     needs:
       - build_llvm
       - build_intel_graphics_compiler_and_compute_runtime
