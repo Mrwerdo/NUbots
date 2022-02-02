@@ -96,7 +96,7 @@ RUN python /usr/local/generate_toolchain.py --prefix /usr/local
 
 FROM base AS llvm
 # Carry through arguments declared in the base image.
-ARG platform
+ARG platform=generic
 
 # zlib
 RUN install-from-source https://www.zlib.net/zlib-1.2.11.tar.gz
@@ -110,7 +110,7 @@ RUN BUILD_FILE_DIR='llvm' install-cmake-from-source https://github.com/llvm/llvm
 
 FROM base as intel-graphics-compiler-and-compute-runtime
 # Carry through arguments declared in the base image.
-ARG platform
+ARG platform=generic
 COPY --from=llvm /usr/local/ /usr/local/
 
 # SPIRV LLVM Translator
@@ -183,7 +183,7 @@ RUN install-from-source https://github.com/OCL-dev/ocl-icd/archive/v2.2.14.tar.g
 
 FROM base AS openblas
 # Carry through arguments declared in the base image.
-ARG platform
+ARG platform=generic
 
 # OpenBLAS
 RUN install-package gcc-fortran
@@ -260,6 +260,12 @@ RUN install-cmake-from-source https://github.com/libuv/libuv/archive/v1.42.0.tar
     -Dlibuv_buildtests=OFF \
     -DBUILD_TESTING=OFF
 
+FROM base AS final-image
+COPY --from=llvm /usr/local/ /usr/local/
+COPY --from=intel-graphics-compiler-and-compute-runtime /usr/local/ /usr/local/
+COPY --from=openblas /usr/local/ /usr/local/
+COPY --from=other-dependencies /usr/local/ /usr/local/
+
 # NUClear!
 RUN install-from-source https://github.com/Fastcode/NUClear/archive/f4a60c7269e277a504635a603c2890fb1a70289d.tar.gz \
     -DBUILD_TESTS=OFF
@@ -291,12 +297,6 @@ RUN mkdir -p /usr/local/include/zstr \
     && wget https://raw.githubusercontent.com/mateidavid/zstr/946ab409380e90e4a46c88c2da4f645a7ffaa51d/src/zstr.hpp -O /usr/local/include/zstr.hpp \
     && wget https://raw.githubusercontent.com/mateidavid/zstr/946ab409380e90e4a46c88c2da4f645a7ffaa51d/src/strict_fstream.hpp -O /usr/local/include/strict_fstream.hpp \
     && wget https://raw.githubusercontent.com/mateidavid/zstr/946ab409380e90e4a46c88c2da4f645a7ffaa51d/src/zstr_make_unique_polyfill.h -O /usr/local/include/zstr_make_unique_polyfill.h
-
-FROM base AS final-image
-COPY --from=llvm /usr/local/ /usr/local/
-COPY --from=intel-graphics-compiler-and-compute-runtime /usr/local/ /usr/local/
-COPY --from=openblas /usr/local/ /usr/local/
-COPY --from=other-dependencies /usr/local/ /usr/local/
 
 #######################################
 ### ADD NEW PROGRAMS/LIBRARIES HERE ###
