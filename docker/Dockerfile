@@ -95,6 +95,8 @@ COPY usr/local/toolchain/generate_${platform}_toolchain.py /usr/local/generate_t
 RUN python /usr/local/generate_toolchain.py --prefix /usr/local
 
 FROM base AS llvm
+# Carry through arguments declared in the base image.
+ARG platform
 
 # zlib
 RUN install-from-source https://www.zlib.net/zlib-1.2.11.tar.gz
@@ -107,6 +109,8 @@ RUN BUILD_FILE_DIR='llvm' install-cmake-from-source https://github.com/llvm/llvm
     -DLLVM_LINK_LLVM_DYLIB=ON
 
 FROM base as intel-graphics-compiler-and-compute-runtime
+# Carry through arguments declared in the base image.
+ARG platform
 COPY --from=llvm /usr/local/ /usr/local/
 
 # SPIRV LLVM Translator
@@ -178,6 +182,8 @@ RUN install-package ruby
 RUN install-from-source https://github.com/OCL-dev/ocl-icd/archive/v2.2.14.tar.gz
 
 FROM base AS openblas
+# Carry through arguments declared in the base image.
+ARG platform
 
 # OpenBLAS
 RUN install-package gcc-fortran
