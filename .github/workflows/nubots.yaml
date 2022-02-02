@@ -19,6 +19,7 @@ jobs:
       target: llvm
       tags: mrwerdo/nubots:llvm
       cache_from: |
+        type=registry,ref=mrwerdo/nubots:llvm
         type=registry,ref=mrwerdo/nubots:generic
         type=inline
     secrets:
@@ -34,6 +35,7 @@ jobs:
       tags: mrwerdo/nubots:intel-graphics-compiler-and-compute-runtime
       cache_from: |
         type=registry,ref=mrwerdo/nubots:llvm
+        type=registry,ref=mrwerdo/nubots:intel-graphics-compiler-and-compute-runtime
         type=registry,ref=mrwerdo/nubots:generic
         type=inline
     secrets:
@@ -47,6 +49,7 @@ jobs:
       target: openblas
       tags: mrwerdo/nubots:openblas
       cache_from: |
+        type=registry,ref=mrwerdo/nubots:openblas
         type=registry,ref=mrwerdo/nubots:generic
         type=inline
     secrets:
@@ -60,6 +63,7 @@ jobs:
       target: other-dependencies
       tags: mrwerdo/nubots:other-dependencies
       cache_from: |
+        type=registry,ref=mrwerdo/nubots:other-dependencies
         type=registry,ref=mrwerdo/nubots:generic
         type=inline
     secrets:
