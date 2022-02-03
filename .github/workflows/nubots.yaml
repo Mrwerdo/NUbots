@@ -12,7 +12,7 @@ jobs:
   build_llvm:
     name: "Build LLVM"
     # Run the reusable workflow located at .github/workflows/build_part_of_image.yaml
-    uses: mrwerdo/nubots/.github/workflows/build_part_of_image.yaml@264ca5834e27056c042d86d81c476ae33a5da30b
+    uses: mrwerdo/nubots/.github/workflows/build_part_of_image.yaml@0ec9ea134529fde7a907e989d220326f3f2780e0
     # Note: a *specific version* of the workflow is being used.
     # See here for details about the bug: https://github.community/t/ref-head-in-reusable-workflows/203690/71
 
@@ -33,7 +33,7 @@ jobs:
   build_intel_graphics_compiler_and_compute_runtime:
     name: "Build Intel Graphics Compiler and Compute Runtime"
     # Run the reusable workflow.
-    uses: mrwerdo/nubots/.github/workflows/build_part_of_image.yaml@264ca5834e27056c042d86d81c476ae33a5da30b
+    uses: mrwerdo/nubots/.github/workflows/build_part_of_image.yaml@0ec9ea134529fde7a907e989d220326f3f2780e0
     # Wait for the following jobs to complete.
     needs: build_llvm
     # Declare inputs for the reusable workflow.
@@ -51,7 +51,7 @@ jobs:
 
   build_openblas:
     name: "Build OpenBLAS"
-    uses: mrwerdo/nubots/.github/workflows/build_part_of_image.yaml@264ca5834e27056c042d86d81c476ae33a5da30b
+    uses: mrwerdo/nubots/.github/workflows/build_part_of_image.yaml@0ec9ea134529fde7a907e989d220326f3f2780e0
     with:
       target: openblas
       cache_from: |
@@ -64,7 +64,7 @@ jobs:
 
   build_other_dependencies:
     name: "Build Other Dependencies"
-    uses: mrwerdo/nubots/.github/workflows/build_part_of_image.yaml@264ca5834e27056c042d86d81c476ae33a5da30b
+    uses: mrwerdo/nubots/.github/workflows/build_part_of_image.yaml@0ec9ea134529fde7a907e989d220326f3f2780e0
     with:
       target: other-dependencies
       cache_from: |
@@ -78,7 +78,7 @@ jobs:
   # Build the docker image.
   build_docker:
     name: "Build Docker Image"
-    uses: mrwerdo/nubots/.github/workflows/build_part_of_image.yaml@264ca5834e27056c042d86d81c476ae33a5da30b
+    uses: mrwerdo/nubots/.github/workflows/build_part_of_image.yaml@0ec9ea134529fde7a907e989d220326f3f2780e0
     # Wait for previous jobs to finish before building the final image.
     needs:
       - build_llvm
