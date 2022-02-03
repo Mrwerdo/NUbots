@@ -14,7 +14,7 @@ jobs:
   # Build LLVM
   build_llvm:
     name: "Build LLVM"
-    uses: mrwerdo/nubots/.github/workflows/build_part_of_image.yaml@${{env.GITHUB_REF_NAME}}
+    uses: mrwerdo/nubots/.github/workflows/build_part_of_image.yaml@HEAD
     with:
       target: llvm
       tags: mrwerdo/nubots:llvm
@@ -28,7 +28,7 @@ jobs:
 
   build_intel_graphics_compiler_and_compute_runtime:
     name: "Build Intel Graphics Compiler and Compute Runtime"
-    uses: mrwerdo/nubots/.github/workflows/build_part_of_image.yaml@${{env.GITHUB_REF_NAME}}
+    uses: mrwerdo/nubots/.github/workflows/build_part_of_image.yaml@${{ env.GITHUB_REF_NAME }}
     needs: build_llvm
     with:
       target: intel-graphics-compiler-and-compute-runtime
@@ -44,7 +44,7 @@ jobs:
 
   build_openblas:
     name: "Build OpenBLAS"
-    uses: mrwerdo/nubots/.github/workflows/build_part_of_image.yaml@${{env.GITHBU_REF_NAME}}
+    uses: mrwerdo/nubots/.github/workflows/build_part_of_image.yaml@${{ env.GITHBU_REF_NAME }}
     with:
       target: openblas
       tags: mrwerdo/nubots:openblas
@@ -58,7 +58,7 @@ jobs:
 
   build_other_dependencies:
     name: "Build Other Dependencies"
-    uses: mrwerdo/nubots/.github/workflows/build_part_of_image.yaml@${{env.GITHUB_REF_NAME}}
+    uses: mrwerdo/nubots/.github/workflows/build_part_of_image.yaml@${{ env.GITHUB_REF_NAME }}
     with:
       target: other-dependencies
       tags: mrwerdo/nubots:other-dependencies
@@ -72,7 +72,7 @@ jobs:
 
   build_docker:
     name: "Build Docker Image"
-    uses: mrwerdo/nubots/.github/workflows/build_part_of_image.yaml@${{env.GITHBU_REF_NAME}}
+    uses: mrwerdo/nubots/.github/workflows/build_part_of_image.yaml@${{ env.GITHBU_REF_NAME }}
     needs:
       - build_llvm
       - build_intel_graphics_compiler_and_compute_runtime
