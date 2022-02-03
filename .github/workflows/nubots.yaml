@@ -3,9 +3,6 @@ name: NUbots CI
 
 # Controls when the action will run.
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [main]
   # Triggers on PRs to any branch
   pull_request:
 
@@ -25,7 +22,7 @@ jobs:
       target: llvm
       # Use the following images as caches from hub.docker.com.
       cache_from: |
-        type=registry,ref=mrwerdo/nubots:llvm
+        type=registry,ref=mrwerdo/nubots:pull-request-${{ github.event.number }}-llvm
         type=registry,ref=mrwerdo/nubots:generic
         type=inline
     secrets:
@@ -44,8 +41,8 @@ jobs:
       target: intel-graphics-compiler-and-compute-runtime
       # Use the following images as caches from hub.docker.com. Notice how llvm is also listed.
       cache_from: |
-        type=registry,ref=mrwerdo/nubots:llvm
-        type=registry,ref=mrwerdo/nubots:intel-graphics-compiler-and-compute-runtime
+        type=registry,ref=mrwerdo/nubots:pull-request-${{ github.event.number }}-llvm
+        type=registry,ref=mrwerdo/nubots:pull-request-${{ github.event.number }}-intel-graphics-compiler-and-compute-runtime
         type=registry,ref=mrwerdo/nubots:generic
         type=inline
     secrets:
@@ -58,7 +55,7 @@ jobs:
     with:
       target: openblas
       cache_from: |
-        type=registry,ref=mrwerdo/nubots:openblas
+        type=registry,ref=mrwerdo/nubots:pull-request-${{ github.event.number }}-openblas
         type=registry,ref=mrwerdo/nubots:generic
         type=inline
     secrets:
@@ -71,7 +68,7 @@ jobs:
     with:
       target: other-dependencies
       cache_from: |
-        type=registry,ref=mrwerdo/nubots:other-dependencies
+        type=registry,ref=mrwerdo/nubots:pull-request-${{ github.event.number }}-other-dependencies
         type=registry,ref=mrwerdo/nubots:generic
         type=inline
     secrets:
@@ -93,11 +90,12 @@ jobs:
       target: final-image
       # Use the following images as caches from hub.docker.com.
       cache_from: |
+        type=registry,ref=mrwerdo/nubots:pull-request-${{ github.event.number }}-intel-graphics-compiler-and-compute-runtime
+        type=registry,ref=mrwerdo/nubots:pull-request-${{ github.event.number }}-llvm
+        type=registry,ref=mrwerdo/nubots:pull-request-${{ github.event.number }}-openblas
+        type=registry,ref=mrwerdo/nubots:pull-request-${{ github.event.number }}-other-dependencies
+        type=registry,ref=mrwerdo/nubots:pull-request-${{ github.event.number }}-final-image
         type=registry,ref=mrwerdo/nubots:generic
-        type=registry,ref=mrwerdo/nubots:intel-graphics-compiler-and-compute-runtime
-        type=registry,ref=mrwerdo/nubots:llvm
-        type=registry,ref=mrwerdo/nubots:openblas
-        type=registry,ref=mrwerdo/nubots:other-dependencies
         type=inline
     secrets:
       docker_hub_username: ${{ secrets.DOCKERHUB_USERNAME }}
